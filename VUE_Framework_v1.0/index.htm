@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Number Guess</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>Number Guessing</h1>
+        <div id="app">
+            <form v-on:submit.prevent>
+                <div>
+                    <!--{{ guess }} <br>-->
+                    <input v-model="numValue" type="number" placeholder="Enter number (0-10)"><br><br>                    
+                </div>
+                <div>
+                    <button v-on:click="compareNumbers">Submit</button>
+                </div>
+            </form>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
