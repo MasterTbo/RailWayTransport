@@ -2,7 +2,11 @@
 
 //Regster the Service Worker
 if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('/RailWayTransport/Assignment_4/service_worker.js');
+    navigator.serviceWorker.register('/RailWayTransport/Assignment_4/service_worker.js', {scope: './'}).then(function(registration){
+        console.log('Seervice Worker registrayion successful:', registration);
+    }, function(error){
+        console.log('Registration failed:', error);
+    });
 };
 
 window.onload = function(){
