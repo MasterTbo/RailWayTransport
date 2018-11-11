@@ -1,13 +1,13 @@
 //Progressive Web App
-window.onload = function(){
-    loadMap();
-}
-
 
 //Regster the Service Worker
 if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('/RailWayTransport/Assignment_3/service_worker.js');
+    navigator.serviceWorker.register('/RailWayTransport/Assignment_4/service_worker.js');
 };
+
+window.onload = function(){
+    loadMap();
+}
 
 //Load map function
 function loadMap(){
