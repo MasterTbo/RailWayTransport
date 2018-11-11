@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="bulma.min.css">
     <link rel="manifest" href="manifest.json">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>  
   <body>
     <section class="section">
@@ -19,8 +20,8 @@
             <img src="images/bluetrain.jpg">
         </div>          
       </div>
-      <div class="container" style="margin-top: 2em">
-          <form class="form">
+      <div id="app" class="container" style="margin-top: 2em">
+          <form class="form" v-on:submit.prevent>
             <div class="filed">
               <div class="control">
                 <input type="text" class="input" placeholder="username">
@@ -33,7 +34,7 @@
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
               <div class="control">
-                  <button  class="button is-black" style="padding-left: 4em; padding-right: 4em">Login</button>
+                  <button v-on:click="login" class="button is-black" style="padding-left: 4em; padding-right: 4em">Login</button>
               </div>                
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
@@ -48,5 +49,6 @@
           </form>
       </div>
     </section>
+    <script src="main.js"></script>
   </body>
 </html>
