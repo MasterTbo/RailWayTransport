@@ -24,12 +24,14 @@
           <form class="form" v-on:submit.prevent>
             <div class="filed">
               <div class="control">
-                <input type="text" class="input" placeholder="username">
+                <label class="label">Username</label>
+                <input v-model="userName" type="text" class="input" placeholder="username">
               </div>
             </div>
             <div class="filed">
                 <div class="control">
-                    <input type="password" class="input" placeholder="password">
+                    <label class="label">Password</label>
+                    <input v-model="passWord" type="password" class="input" placeholder="password">
                 </div>
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
@@ -42,13 +44,13 @@
                 Don't have accont?                       
               <br> 
                 <span class="is-link">
-                  <u class="is-black">Sign up</u>
+                  <u class="is-black"><a href="register.html">Signup</a></u>
                 </span>
               </div>
             </div>
-          </form>
+          </form>          
       </div>
-    </section>
+    </section>    
     <script src="main.js"></script>
   </body>
 </html>
