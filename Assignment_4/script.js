@@ -89,7 +89,6 @@ function searchLocation(){
     })
 }
 
-
 //Load map function
 function loadMap(){
     //window.location.href = "searchTrain.html";
