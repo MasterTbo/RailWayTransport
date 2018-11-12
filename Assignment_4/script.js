@@ -1,9 +1,6 @@
-window.onload = function(){
-    loadMap();
-}
-
 var appElement = document.getElementById('#app')
 if(appElement){
+    console.log("appFunc")
     var app = new Vue({
         el: '#app',
         data: {
@@ -49,21 +46,25 @@ if(appElement){
         }
     })
 } 
-
+console.log("outFunc");
 var registerAppElement = document.getElementById('#registerapp')
 if(registerAppElement) {
     var registerApp = new Vue({
         el: '#registerapp',
         data: {
-
+            passwordError: false,
+            showModal: false,
+            message: "",
+            password: ""
         },
         methods: {
             registerUser: function(){
+                console.log("regFunc");
                 this.passwordError = false;
                 this.message = "";
                 if(password.length < 6){
-                    this.passwordError = true;
                     this.showModal = true;
+                    this.passwordError = true;                    
                     this.message = "Password too short";
                 }
 
@@ -83,35 +84,3 @@ if(registerAppElement) {
     })
 }
  
-function searchLocation(){
-    var geo = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken
-    })
-}
-
-//Load map function
-function loadMap(){
-    //window.location.href = "searchTrain.html";
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGJvLTAiLCJhIjoiY2ptdDhsZXY1MmM3NTNrbnhiOGJ1bHZoaCJ9.qh77ltMqwFPAZrbUcTNNMw';
-    window.map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10',       
-        center: [18.4241, -33.9249], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
-    
-    window.startPin = new mapboxgl.Marker({draggable : true}).setLngLat([0, 0]).addTo(window.map)
-    window.destinationPin = new mapboxgl.Marker({draggable : true}).setLngLat([0, 0]).addTo(window.map)
-    window.map.on('click', function(event){
-        event.preventDefault();
-        if(window.startPoint == true){
-            window.destinationPin.setLngLat(event.lngLat);
-            window.startPoint = false;
-            //document.getElementById('destination').value = event.lngLat.lng + "," + event.lngLat.lat;
-        }else{
-            window.startPin.setLngLat(event.lngLat);
-            window.startPoint = true;
-            //document.getElementById('start').value = event.lngLat.lng + "," + event.lngLat.lat;
-        }
-    })
-}

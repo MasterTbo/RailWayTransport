@@ -11,12 +11,13 @@
             <form class="form" v-on:submit.prevent>
                 <div class="field">
                     <label class="label">Userame</label>
-                    <input v-model="username" v-if="passwordError": {{ message }} type="text" class="input">
+                    <input v-model="username" v-bind:class="{'is-danger': usernameError}" type="text" class="input">
+
                 </div>
                 <div class="field">
                     <label class="label">Password</label>
-                    <input v-model="password" v-if="passwordError": {{ message }}> 
-                    <!--v-bind:class="{'is-danger': passwordError}" type="password" id="password" class="input">-->
+                    <input v-model="password" v-bind:class="{'is-danger': passwordError}" type="password" class="input">
+
                 </div>
                 <div class="control">
                     <button v-on:click="registerUser" class="button is-black">Register</button>
@@ -27,8 +28,8 @@
                 <div class="modal-content">
                   <!-- Any other Bulma elements you want -->
                   <div class="box" style="background-color: white">
-                        <div>
-                            {{ message }}
+                        <div class="has-text-danger" v-if="passwordError || usernameError">
+                            {{ usernameMessage }}{{ passwordMessage }}
                         </div>
                         <Button v-on:click="closeModal" class="button is-primary">Ok</Button>
                   </div>
@@ -36,6 +37,6 @@
                 <button class="modal-close is-large" aria-label="close"></button>
             </div>
         </div>
-        <script src="script.js"></script>
+        <script src="scriptRegister.js"></script>
     </body>
 </html>
