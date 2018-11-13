@@ -7,6 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
   </head>  
   <body>
     <section class="section">
@@ -36,7 +37,7 @@
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
               <div class="control">
-                  <button v-on:click="login" class="button is-black" style="padding-left: 4em; padding-right: 4em">Login</button>
+                  <button  id="btn-login" class="button is-black" style="padding-left: 4em; padding-right: 4em">Login</button>
               </div>                
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">

@@ -12,12 +12,21 @@
                 <div class="field">
                     <label class="label">Userame</label>
                     <input v-model="username" v-bind:class="{'is-danger': usernameError}" type="text" class="input">
-
+                    <!--<ul>
+                        <li v-for="error in usernameError">
+                            {{ error }}
+                        </li>
+                    </ul>-->
                 </div>
                 <div class="field">
                     <label class="label">Password</label>
                     <input v-model="password" v-bind:class="{'is-danger': passwordError}" type="password" class="input">
-
+                    <!--<ul>
+                        <li v-for="error in passwordError">
+                            {{ error.msg }}
+                            <span><small>{{new date(error.date).tostring()}}</small></span>
+                        </li>
+                    </ul>-->
                 </div>
                 <div class="control">
                     <button v-on:click="registerUser" class="button is-black">Register</button>
@@ -29,9 +38,20 @@
                   <!-- Any other Bulma elements you want -->
                   <div class="box" style="background-color: white">
                         <div class="has-text-danger" v-if="passwordError || usernameError">
-                            {{ usernameMessage }}{{ passwordMessage }}
+                            <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                            <ul>
+                                <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                                <li v-for="error in usernameMessage">
+                                    {{ error.msg }}
+                                    <span><small>{{error.date}}</small></span>
+                                </li>
+                                <li v-for="error in passwordMessage">
+                                    {{ error.msg }}
+                                    <span><small>{{error.date}}</small></span>
+                                </li>
+                            </ul>
                         </div>
-                        <Button v-on:click="closeModal" class="button is-primary">Ok</Button>
+                        <button v-on:click="closeModal" class="button is-black">Ok</button>
                   </div>
                 </div>
                 <button class="modal-close is-large" aria-label="close"></button>

@@ -2,11 +2,16 @@ window.onload = function(){
     loadMap();
 }
 
-function searchLocation(){
-    var geo = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken
-    })
-}
+//function searchLocation(){
+//    var geo = new MapboxGeocoder({
+//        accessToken: mapboxgl.accessToken
+//    })
+//}
+
+var geocoder = new MapboxGeocoder({
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGJvLTAiLCJhIjoiY2ptdDhsZXY1MmM3NTNrbnhiOGJ1bHZoaCJ9.qh77ltMqwFPAZrbUcTNNMw';
+    accessToken: mapboxgl.accessToken;
+});
 
 //Load map function
 function loadMap(){
