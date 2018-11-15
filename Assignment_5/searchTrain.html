@@ -32,5 +32,80 @@
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="map.js"></script>
 
+<!--My v_1.0 Code-->
+
+<!--<head>
+        <title>Search a Train</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <link rel="stylesheet" type="text/css" href="bulma.min.css">
+        
+        
+        <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059" />
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+    </head>
+    <body>
+        <h1 class="is-size-1">Search for Train</h1>
+        <div>
+            <form class="form">
+                <div class="field">
+                    <label class="label">Current location</label>
+                    <input class="input" id="startLocation"/>
+                </div>
+    
+                <div class="field">
+                    <label class="label">Destination</label>
+                    <input class="input" id="destLocation"/>
+                </div>
+           
+                <div class="field">
+                    <input onclick="searchLocation()" class="button is-black" id="getTrip" value="search"/>
+                </div>
+                &nbsp;
+            </form><br><br>
+        </div>
+        <div class="container" id="map-show">
+            <div id='map' style='width: 100%; height: 600px;'></div>
+        </div>    
+        
+        <script src="map.js"></script>
+>>>>>>> 9e86247dcd234aed0f0a85c83339bc123f60f97a-->
     </body>
 </html>
+
+<!--<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id="app" class="section">
+      <form class="form" v-on:submit.prevent>
+        <div class="field">
+          <label class="label">Enter Address</label>
+          <input class="input" id="address search bar" v-model="address">
+        </div>
+        <button class="button" @click="search">Search</button>
+        <button class="button" @click="find">Find</button>
+      </form>
+
+      <div id="results_window" class="container">
+        <ul>
+          <li v-for="result in results" @click="klick(result)">
+            {{ result.label }}
+          </li>
+        </ul>
+      </div>
+
+      <div id="geo_results" class="container">
+        <div v-for="result in geoResults">
+          {{ result.Location.DisplayPosition }}
+        </div>
+      </div>
+    </div>
+
+    <script src="map.js"></script>
+  </body>
+</html>-->
