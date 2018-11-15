@@ -13,10 +13,10 @@
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
     <h1 class="is-size-1">Search for Train</h1>
     <div>
-        <input class="input" id="startPoint" v-on:model="searchTrip" type="text" placeholder="search for train"><br><br>
+        <input class="input" id="startPoint" v-model="startAddress" type="text" placeholder="search for train"><br><br>
     </div>
     <div>
-        <input class="input" id="endPoint" v-on:model="searchTrip" type="text" placeholder="Enter destination"><br><br>
+        <input class="input" id="endPoint" v-model="destAddress" type="text" placeholder="Enter destination"><br><br>
     </div>
     <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
         <div class="control">
@@ -24,7 +24,7 @@
         </div>                
         </div>
     <div class="container" id="map-show">
-        <div id='map' class="geocoder" style='width: 100%; height: 600px;'></div>
+        <div id='map' style='width: 100%; height: 600px;'></div>
     </div>
     
     <!--Map with pointer scrips-->
