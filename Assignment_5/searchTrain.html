@@ -3,15 +3,14 @@
         <title>Search a Train</title>
         <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
         <link rel="stylesheet" type="text/css" href="bulma.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-        crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-        integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-        crossorigin=""></script>
-        <link rel="manifest" href="manifest.json">
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        
+        <!--HERE map API-->
+        <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059" />
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
     </head>
     <body>
         <h1 class="is-size-1">Search for Train</h1>
@@ -34,9 +33,43 @@
             </form><br><br>
         </div>
         <div class="container" id="map-show">
-            <div id='map' class="geocoder" style='width: 100%; height: 600px;'></div>
+            <div id='map' style='width: 100%; height: 600px;'></div>
         </div>    
         
         <script src="map.js"></script>
     </body>
 </html>
+
+<!--<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id="app" class="section">
+      <form class="form" v-on:submit.prevent>
+        <div class="field">
+          <label class="label">Enter Address</label>
+          <input class="input" id="address search bar" v-model="address">
+        </div>
+        <button class="button" @click="search">Search</button>
+        <button class="button" @click="find">Find</button>
+      </form>
+
+      <div id="results_window" class="container">
+        <ul>
+          <li v-for="result in results" @click="klick(result)">
+            {{ result.label }}
+          </li>
+        </ul>
+      </div>
+
+      <div id="geo_results" class="container">
+        <div v-for="result in geoResults">
+          {{ result.Location.DisplayPosition }}
+        </div>
+      </div>
+    </div>
+
+    <script src="map.js"></script>
+  </body>
+</html>-->

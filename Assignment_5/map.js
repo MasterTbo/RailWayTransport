@@ -1,7 +1,110 @@
+/*var platform = new H.service.Platform({
+    'app_id':'CVNwhRsBKjQXRlbOZIJs',
+    'app_code':'5bgs6vvyBoKP9cAOjBy1gA'
+});*/
+
+function moveMapToCapeTown(map){
+    map.setCenter({lat:-33.9249, lng:18.4241});
+    map.setZoom(10);
+    var mapMarker = new H.map.Marker({lat:-33.9249, lng:18.4241});
+    map.addObject(mapMarker);
+}
+
+function putMarker(map){
+    var mapMarker = new H.map.Marker({lat:-33.9249, lng:18.4241});
+  map.addObject(mapMarker);
+}
+   
+  /**
+   * Boilerplate map initialization code starts below:
+   */
+  
+  //Step 1: initialize communication with the platform
+  var platform = new H.service.Platform({
+    app_id: 'CVNwhRsBKjQXRlbOZIJs',
+    app_code: '5bgs6vvyBoKP9cAOjBy1gA',
+    useHTTPS: true
+  });
+
+  var pixelRatio = window.devicePixelRatio || 1;
+  var defaultLayers = platform.createDefaultLayers({
+    tileSize: pixelRatio === 1 ? 256 : 512,
+    ppi: pixelRatio === 1 ? undefined : 320
+  });
+  
+  //Step 2: initialize a map  - not specificing a location will give a whole world view.
+  var map = new H.Map(document.getElementById('map'),
+    defaultLayers.normal.map, {pixelRatio: pixelRatio});
+  
+  //Step 3: make the map interactive
+  // MapEvents enables the event system
+  // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+  var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+  
+  // Create the default UI components
+  var ui = H.ui.UI.createDefault(map, defaultLayers);
+  
+  // Now use the map as required...
+  moveMapToCapeTown(map);
+  //putMarker(map);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 window.onload = function(){
     loadMap();
 }
-/*
+
 function searchLocation(){
     var geo = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken;
@@ -43,7 +146,7 @@ document.getElementById('map').appendChild(geocoder.onAdd(map));
 */
 
 //New
-
+/*
 function loadMap() {  
     var mymap = L.map('map').setView([-33.9249,18.4241], 13);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -70,4 +173,59 @@ geocodingClient
   .then(response => {
     const match = response.body;
   });
-}
+}*/
+
+/*
+//Lecture code Search Location
+const appId = 'CVNwhRsBKjQXRlbOZIJs'
+const appCode = '5bgs6vvyBoKP9cAOjBy1gA'
+
+const autocompleteUrl = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json" +
+  "?app_id=" + appId +
+  "&app_code=" + appCode +
+  "&query="
+  
+const geocodeUrl = "https://geocoder.api.here.com/6.2/geocode.json" +
+  "?app_id=" + appId +
+  "&app_code=" + appCode +
+  "&searchtext="
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    address: '',
+    results: [],
+    geoResults: []
+  },
+  methods: {
+    find: function () {
+      var _this = this
+      fetch(geocodeUrl + this.address)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (response) {
+          console.log('geocode', response)
+          console.log('location', response.Response.View[0].Result[0].Location.DisplayPosition)
+          _this.geoResults = response.Response.View[0].Result
+        })
+    },
+    search: function () {
+      if(this.address.length > 5) {
+        var _this = this
+        fetch(autocompleteUrl + this.address)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (response){
+            _this.results = response.suggestions
+          })
+      } else {
+        console.log('must use a valid address')
+      }
+    },
+    klick: function (result) {
+      this.address = result.label
+    }
+  }
+})*/
