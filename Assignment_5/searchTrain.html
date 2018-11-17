@@ -4,108 +4,103 @@
     <meta charset='utf-8' />
     <title>Search a Train</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <link rel="stylesheet" type="text/css" href="bulma.min.css">
+    <style>
+            body { 
+              overflow: hidden;
+              margin:0;
+              padding: 0;
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 100vh;
+              width: 100vw;
+            }
+            #map { 
+              height: 80vh; 
+              z-index: 0;
+            }
+            #search { 
+              z-index: 100;
+              width: 100%;
+            }
+            #results {
+                z-index: 101;
+            }
+            #innersearch {
+              width: 20%;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 10px;
+            }
+            #innersearch input {
+              margin-bottom: 5px;
+              width: 200%;
+            }
+          </style>
 </head>
 <body>
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
     <h1 class="is-size-1">Search for Train</h1>
-    <div>
-        <input class="input" id="startPoint" v-model="startAddress" type="text" placeholder="search for train"><br><br>
-    </div>
-    <div>
-        <input class="input" id="endPoint" v-model="destAddress" type="text" placeholder="Enter destination"><br><br>
-    </div>
-    <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
-        <div class="control">
-            <button  id="btnSearch" class="button is-black" style="padding-left: 4em; padding-right: 4em">Search</button>
-        </div>                
+    <div id="app">
+        <div id="search">
+            <div id="innersearch">
+                <form v-on:submit.prevent>
+                    <div>
+                        <input class="input" v-bind:class="{'is-danger': startLocError}" placeholder="start" v-model="startAddress" v-on:keyup="autocomplete"><br>
+                    </div>
+                    <div>
+                        <input class="input" v-bind:class="{'is-danger': destLocError}" placeholder="end" v-model="destAddress" v-on:keyup="autocomplete"><br>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
+                        <div class="control">
+                            <button v-on:click="locationSearch" id="btnSearch" class="button is-black" style="padding-left: 4em; padding-right: 4em">Search</button>
+                        </div>                
+                    </div>
+                </form>
+                <div class="modal" v-bind:class="{'is-active': showModal}">
+                        <div class="modal-background"></div>
+                        <div class="modal-content">
+                          <!-- Any other Bulma elements you want -->
+                          <div class="box" style="background-color: white">
+                                <div class="has-text-danger" v-if="startLocError || destLocError">
+                                    <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                                    <ul>
+                                        <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                                        <li v-for="error in startLocMessage">
+                                            {{ error.msg }}
+                                            <span><small>{{error.date}}</small></span>
+                                        </li>
+                                        <li v-for="error in endLocMessage">
+                                            {{ error.msg }}
+                                            <span><small>{{error.date}}</small></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button v-on:click="closeModal" class="button is-black">Ok</button>
+                          </div>
+                        </div>
+                        <button class="modal-close is-large" aria-label="close"></button>
+                    </div>
+            </div>
         </div>
+        <div id="results" v-for="result in autoCompleteResults" @click="resultSelect(result)">
+            {{ result.label }}
+        </div>
+        
+    </div>
+
+    
+    
     <div class="container" id="map-show">
         <div id='map' style='width: 100%; height: 600px;'></div>
     </div>
     
     <!--Map with pointer scrips-->
-    <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
-    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="map.js"></script>
 
-<!--My v_1.0 Code-->
-
-<!--<head>
-        <title>Search a Train</title>
-        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-        <link rel="stylesheet" type="text/css" href="bulma.min.css">
-        
-        
-        <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059" />
-<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
-
-    </head>
-    <body>
-        <h1 class="is-size-1">Search for Train</h1>
-        <div>
-            <form class="form">
-                <div class="field">
-                    <label class="label">Current location</label>
-                    <input class="input" id="startLocation"/>
-                </div>
-    
-                <div class="field">
-                    <label class="label">Destination</label>
-                    <input class="input" id="destLocation"/>
-                </div>
-           
-                <div class="field">
-                    <input onclick="searchLocation()" class="button is-black" id="getTrip" value="search"/>
-                </div>
-                &nbsp;
-            </form><br><br>
-        </div>
-        <div class="container" id="map-show">
-            <div id='map' style='width: 100%; height: 600px;'></div>
-        </div>    
-        
-        <script src="map.js"></script>
->>>>>>> 9e86247dcd234aed0f0a85c83339bc123f60f97a-->
     </body>
 </html>
-
-<!--<html>
-  <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  </head>
-  <body>
-    <div id="app" class="section">
-      <form class="form" v-on:submit.prevent>
-        <div class="field">
-          <label class="label">Enter Address</label>
-          <input class="input" id="address search bar" v-model="address">
-        </div>
-        <button class="button" @click="search">Search</button>
-        <button class="button" @click="find">Find</button>
-      </form>
-
-      <div id="results_window" class="container">
-        <ul>
-          <li v-for="result in results" @click="klick(result)">
-            {{ result.label }}
-          </li>
-        </ul>
-      </div>
-
-      <div id="geo_results" class="container">
-        <div v-for="result in geoResults">
-          {{ result.Location.DisplayPosition }}
-        </div>
-      </div>
-    </div>
-
-    <script src="map.js"></script>
-  </body>
-</html>-->
