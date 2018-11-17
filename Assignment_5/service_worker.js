@@ -2,18 +2,23 @@
 
 var cacheName = "RailWayTransport_v1.0";
 var appShellFiles = [
-    '/RailWayTransport/Assignment_4/',
-    '/RailWayTransport/Assignment_4/images/',
-    '/RailWayTransport/Assignment_4/images/bluetrain.jpg',
-    '/RailWayTransport/Assignment_4/bulma.min.css',
-    '/RailWayTransport/Assignment_4/index.html',
-    '/RailWayTransport/Assignment_4/main.js',
-    '/RailWayTransport/Assignment_4/icons/',
-    '/RailWayTransport/Assignment_4/icons/mapPointer.jpg',
-    '/RailWayTransport/Assignment_4/icons/trainIcon_1.png',
-    '/RailWayTransport/Assignment_4/icons/trainIcon_2.png',
-    '/RailWayTransport/Assignment_4/icons/trainIcon_3.png',
-    '/RailWayTransport/Assignment_4/icons/trainIconRed.png'
+    '/RailWayTransport/Assignment_5/',
+    '/RailWayTransport/Assignment_5/images/',
+    '/RailWayTransport/Assignment_5/images/bluetrain.jpg',
+    '/RailWayTransport/Assignment_5/bulma.min.css',
+    '/RailWayTransport/Assignment_5/index.html',
+    '/RailWayTransport/Assignment_5/register.html',
+    '/RailWayTransport/Assignment_5/searchTrain.html',
+    '/RailWayTransport/Assignment_5/main.js',
+    '/RailWayTransport/Assignment_5/map.js',
+    '/RailWayTransport/Assignment_5/script.js',
+    '/RailWayTransport/Assignment_5/scriptRegister.js',
+    '/RailWayTransport/Assignment_5/icons/',
+    '/RailWayTransport/Assignment_5/icons/mapPointer.jpg',
+    '/RailWayTransport/Assignment_5/icons/trainIcon_1.png',
+    '/RailWayTransport/Assignment_5/icons/trainIcon_2.png',
+    '/RailWayTransport/Assignment_5/icons/trainIcon_3.png',
+    '/RailWayTransport/Assignment_5/icons/trainIconRed.png'
 ];
 
 //Installing Service Worker
