@@ -1,0 +1,36 @@
+{
+    "name": "RailWayTransport Progressive Web App",
+    "short_name": "RaWayTra",
+    "description": "Progressive Web App that models and manages the rail way transport queries",
+    "icons": [
+        {
+            "src": "icons/trainIcon_1.jpg",
+            "size": "216x233",
+            "type": "image/jpg"
+        },
+        {
+            "src": "icons/trainIcon_2.png",
+            "size": "225x225",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/trainIcon_3.png",
+            "size": "200x200",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/trainIconRed.png",
+            "size": "225x225",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/mapPointer.png",
+            "size": "225x225",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/RailWayTransport/Assignment_5/index.html",
+    "display": "fullscreen",
+    "theme_color": "#B12A34",
+    "background_color": "#B12A34"
+}

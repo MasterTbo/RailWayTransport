@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Search a Train</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="bulma.min.css">
+    <style>
+            body { 
+              overflow: hidden;
+              margin:0;
+              padding: 0;
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 100vh;
+              width: 100vw;
+            }
+            #map { 
+              height: 80vh; 
+              z-index: 0;
+            }
+            #search { 
+              z-index: 100;
+              width: 100%;
+            }
+            #results {
+                z-index: 101;
+            }
+            #innersearch {
+              width: 20%;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 10px;
+            }
+            #innersearch input {
+              margin-bottom: 5px;
+              width: 200%;
+            }
+          </style>
+</head>
+<body>
+    <h1 class="is-size-1">Search for Train</h1>
+    <div id="app">
+        <div id="search">
+            <div id="innersearch">
+                <form v-on:submit.prevent>
+                    <div>
+                        <input class="input" v-bind:class="{'is-danger': startLocError}" placeholder="start" v-model="startAddress" v-on:keyup="autocomplete"><br>
+                    </div>
+                    <div>
+                        <input class="input" v-bind:class="{'is-danger': destLocError}" placeholder="end" v-model="destAddress" v-on:keyup="autocomplete"><br>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
+                        <div class="control">
+                            <button v-on:click="locationSearch" id="btnSearch" class="button is-black" style="padding-left: 4em; padding-right: 4em">Search</button>
+                        </div>                
+                    </div>
+                </form>
+                <div class="modal" v-bind:class="{'is-active': showModal}">
+                        <div class="modal-background"></div>
+                        <div class="modal-content">
+                          <!-- Any other Bulma elements you want -->
+                          <div class="box" style="background-color: white">
+                                <div class="has-text-danger" v-if="startLocError || destLocError">
+                                    <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                                    <ul>
+                                        <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                                        <li v-for="error in startLocMessage">
+                                            {{ error.msg }}
+                                            <span><small>{{error.date}}</small></span>
+                                        </li>
+                                        <li v-for="error in endLocMessage">
+                                            {{ error.msg }}
+                                            <span><small>{{error.date}}</small></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button v-on:click="closeModal" class="button is-black">Ok</button>
+                          </div>
+                        </div>
+                        <button class="modal-close is-large" aria-label="close"></button>
+                    </div>
+            </div>
+        </div>
+        <div id="results" v-for="result in autoCompleteResults" @click="resultSelect(result)">
+            {{ result.label }}
+        </div>
+        
+    </div>
+
+    
+    
+    <div class="container" id="map-show">
+        <div id='map' style='width: 100%; height: 600px;'></div>
+    </div>
+    
+    <!--Map with pointer scrips-->
+    <script src="map.js"></script>
+
+    </body>
+</html>
