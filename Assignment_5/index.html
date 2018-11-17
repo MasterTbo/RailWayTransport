@@ -26,18 +26,18 @@
             <div class="filed">
               <div class="control">
                 <label class="label">Username</label>
-                <input v-model="userName" type="text" class="input" placeholder="username">
+                <input  v-model="username" v-bind:class="{'is-danger': usernameError}" type="text" class="input" placeholder="username">
               </div>
             </div>
             <div class="filed">
                 <div class="control">
                     <label class="label">Password</label>
-                    <input v-model="passWord" type="password" class="input" placeholder="password">
+                    <input v-model="password" v-bind:class="{'is-danger': passwordError}" type="password" class="input" placeholder="password">
                 </div>
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
               <div class="control">
-                  <button  id="btn-login" class="button is-black" style="padding-left: 4em; padding-right: 4em">Login</button>
+                  <button  id="btn-login" v-on:click="loginUser" class="button is-black" style="padding-left: 4em; padding-right: 4em">Login</button>
               </div>                
             </div>
             <div class="field is-grouped is-grouped-centered" style="margin-top: 2rem">
@@ -49,7 +49,31 @@
                 </span>
               </div>
             </div>
-          </form>          
+          </form>
+          <div class="modal" v-bind:class="{'is-active': showModal}">
+              <div class="modal-background"></div>
+              <div class="modal-content">
+                <!-- Any other Bulma elements you want -->
+                <div class="box" style="background-color: white">
+                      <div class="has-text-danger" v-if="passwordError || usernameError">
+                          <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                          <ul>
+                              <!--{{ usernameMessage }}{{ passwordMessage }}-->
+                              <li v-for="error in usernameMessage">
+                                  {{ error.msg }}
+                                  <span><small>{{error.date}}</small></span>
+                              </li>
+                              <li v-for="error in passwordMessage">
+                                  {{ error.msg }}
+                                  <span><small>{{error.date}}</small></span>
+                              </li>
+                          </ul>
+                      </div>
+                      <button v-on:click="closeModal" class="button is-black">Ok</button>
+                </div>
+              </div>
+              <button class="modal-close is-large" aria-label="close"></button>
+          </div>          
       </div>
     </section>    
     <script src="main.js"></script>
