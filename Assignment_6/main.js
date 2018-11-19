@@ -24,25 +24,25 @@ var app = new Vue({
     }
 })
 
-window.addEventListener('load', function() {
-
-    var webAuth = new auth0.WebAuth({
-      domain: 'matjele-teboho.auth0.com',
-      clientID: 'e9XgVNbWM7tGiMzqmr4Xa2YkccWWtjuY',
-      responseType: 'token id_token',
-      scope: 'openid',
-      redirectUri: window.location.href
-    });
-  
-    var loginBtn = document.getElementById('btn-login');
-  
-    loginBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      webAuth.authorize();
-    });
-  
-  });
-
+//window.addEventListener('load', function() {
+//
+//    var webAuth = new auth0.WebAuth({
+//      domain: 'matjele-teboho.auth0.com',
+//      clientID: 'e9XgVNbWM7tGiMzqmr4Xa2YkccWWtjuY',
+//      responseType: 'token id_token',
+//      scope: 'openid',
+//      redirectUri: window.location.href
+//    });
+//  
+//    var loginBtn = document.getElementById('btn-login');
+//  
+//    loginBtn.addEventListener('click', function(e) {
+//      e.preventDefault();
+//      webAuth.authorize();
+//    });
+//  
+//  });
+//
 
 
 /*
