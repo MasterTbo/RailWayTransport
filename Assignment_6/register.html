@@ -1,15 +1,21 @@
 <html>
     <head>
         <title>Register</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="bulma.min.css">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     </head>
     <body>
-        <h1 class="is-size-1">Register to RailWayTransport</h1>
+        <h1 class="is-size-1">RailWayTransport</h1>
+        <div class="container has-text-centered">
+            <div class="">
+                <img src="images/mapPointer.jpg">
+            </div>          
+          </div>
         <div class="container" id="registerapp">
             <form class="form" v-on:submit.prevent>
-                <div class="field">
+                <div class="control">
                     <label class="label">Userame</label>
                     <input v-model="username" v-bind:class="{'is-danger': usernameError}" type="text" class="input">
                     <!--<ul>
@@ -18,7 +24,7 @@
                         </li>
                     </ul>-->
                 </div>
-                <div class="field">
+                <div class="control">
                     <label class="label">Password</label>
                     <input v-model="password" v-bind:class="{'is-danger': passwordError}" type="password" class="input">
                     <!--<ul>
