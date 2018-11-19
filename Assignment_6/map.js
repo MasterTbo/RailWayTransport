@@ -1,132 +1,223 @@
-/*
-window.onload = function(){
-    loadMap();
-}
+var map = L.map('map').setView([-33.91, 18.41], 11)
+//L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
 
-function searchLocation(){
-    var geo = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken;
-    });
-}*/
-/*
-var geocoder = new MapboxGeocoder({
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGJvLTAiLCJhIjoiY2ptdDhsZXY1MmM3NTNrbnhiOGJ1bHZoaCJ9.qh77ltMqwFPAZrbUcTNNMw';
-    accessToken: mapboxgl.accessToken;
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map)
+
+const appId = 'CVNwhRsBKjQXRlbOZIJs'
+const appCode = '5bgs6vvyBoKP9cAOjBy1gA'
+const clientId = 'f99da0f2-7aed-4d6a-a64b-5a166c99bdd3'
+const clientSecret = 'fTV46ARkBaBb+nSNwmBWQm2Eum+I2ik+cBsq6Bsnwso='
+
+const autocompleteUrl = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json" +
+  "?app_id=" + appId +
+  "&app_code=" + appCode +
+  "&query="
+  
+const geocodeUrl = "https://geocoder.api.here.com/6.2/geocode.json" +
+  "?app_id=" + appId +
+  "&app_code=" + appCode +
+  "&searchtext=";
+
+var redIcon = L.icon({
+    iconUrl: 'icons/mapPointer.jpg',
+    //shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [38, 95], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-//Load map function
-function loadMap(){
-    //window.location.href = "searchTrain.html";
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGJvLTAiLCJhIjoiY2ptdDhsZXY1MmM3NTNrbnhiOGJ1bHZoaCJ9.qh77ltMqwFPAZrbUcTNNMw';
-    window.map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10',       
-        center: [18.4241, -33.9249], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
-    
-    window.startPin = new mapboxgl.Marker({draggable : true}).setLngLat([0, 0]).addTo(window.map)
-    window.destinationPin = new mapboxgl.Marker({draggable : true}).setLngLat([0, 0]).addTo(window.map)
-    window.map.on('click', function(event){
-        event.preventDefault();
-        if(window.startPoint == true){
-            window.destinationPin.setLngLat(event.lngLat);
-            window.startPoint = false;
-            //document.getElementById('destination').value = event.lngLat.lng + "," + event.lngLat.lat;
-        }else{
-            window.startPin.setLngLat(event.lngLat);
-            window.startPoint = true;
-            //document.getElementById('start').value = event.lngLat.lng + "," + event.lngLat.lat;
+L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
+
+//Lecture code
+const tokenUrl = "https://identity.whereismytransport.com/connect/token"
+
+function login() {
+    var payload = {
+        'client_id': clientId,
+        'client_secret': clientSecret,
+        'grant_type': 'client_credentials',
+        'scope': 'transportapi:all'
+    }
+
+    var request = new XMLHttpRequest();
+    request.open('POST', 'https://identity.whereismytransport.com/connect/token', true);
+    request.addEventListener('load', function () {
+        if(this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            var token = response.access_token;
+            window.token = token;
+
+            localStorage.setItem('token', token)
+            localStorage.setItem('storageDate', Date.now().toLocaleString())
+        } else {
+            console.log("get token call failed")
+            alert('login unsuccessful')
         }
-    })
-}
-document.getElementById('map').appendChild(geocoder.onAdd(map));
-*/
+    });
+    request.setRequestHeader('Accept', 'application/json');
+    var formData = new FormData();
 
-//New
-/*
-function loadMap() {  
-    var mymap = L.map('map').setView([-33.9249,18.4241], 13);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoidXdjbGVjdHVyZXIiLCJhIjoiY2ptdWJ6aWt1MGQ4aDN3bzhiM2V1dnRiYyJ9.lWYq773rwVmRzbyHcYAVHw'
-    }).addTo(mymap)
+    for (var key in payload) {
+        formData.append(key, payload[key]);
+    }
+
+    request.send(formData);
 }
 
-function searchLocation(){
-    var strRegion = document.getElementById('startLocation').innerText;
-    var endRegion = document.getElementById('destLocation').innerText;
-    const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoidGJvLTAiLCJhIjoiY2ptdDhsZXY1MmM3NTNrbnhiOGJ1bHZoaCJ9.qh77ltMqwFPAZrbUcTNNMw' });
-
-// geocoding with proximity
-geocodingClient
-  .forwardGeocode({
-    query: 'Paris, France',
-    proximity: [stsRegion, endRegion]
-  })
-  .send()
-  .then(response => {
-    const match = response.body;
-  });
-}*/
-
-var appID= 'CVNwhRsBKjQXRlbOZIJs'
-var appCode = '5bgs6vvyBoKP9cAOjBy1gA'
-
-
-
-var url = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json" + "?app_id=" +appID + " &app_code=" + appCode + "&query="
-
-var geocodeUrl = "https://geocoder.api.here.com/6.2/geocode.json" 
-        + "?app_id=" + appID
-        + " &app_code=" + appCode 
-        + "&searchtext="
+login()
 
 
 var app = new Vue({
     el: '#app',
     data: {
-        address: '',
-        results: [],
-        geocodeResults: []
+        startAddress: '',        
+        startPoint: "",
+        destAddress: "",
+        autoCompleteResults: [],
+
+        destLocError: false,
+        startLocError: false,
+        showModal: false,
+        startLocMessage: [],
+        endLocMessage: []        
     },
-    methods:{
-        klick: function(result){
-            this.address = result.label
-        },
+    methods: {
+        locationSearch: function(){
+            //console.log("searchFunc");
+            this.destLocError =  false;
+            this.startLocError =  false;
+            this.showModal = false;
+            this.startLocMessage = [];
+            this.endLocMessage = [];
 
-        find: function(){
+            if(this.startAddress.length <= 0){
+                this.showModal = true;
+                this.startLocError = true;
+                this.startLocMessage.push({msg:"Please enter start address", date: Date.now()});
+                //console.log("user <= 0");
+            }
+
+            if(this.destAddress.length <= 0){
+                this.showModal = true;
+                this.destLocError = true;
+                this.endLocMessage.push({msg:"Please enter destination address", date: Date.now()});
+                //console.log("user <= 0");
+            }
+        },
+        closeModal: function(){
+            this.destLocError = false;
+            this.startLocError = false;
+            this.startLocMessage = [];
+            this.endLocMessage = [];
+            this.showModal = false;
+            console.log("closeModal");
+        },
+        autocomplete: function () {
             var _this = this
-            fetch(geocodeUrl + this.address)
-            .then(function (response){    
-                return response.json()
-            })
-            .then(function(response){
-                console.log('geocode' , response)
-                console.log('location', response.Response.View[0].Result[0].Location.DisplayPosition)
-                _this.geocodeResults = response.Response.View[0].Result
+            var coordAddres = "";
+            if(this.startAddress.length < 3 && this.destAddress.length < 3) {
+                return false
+            }
 
-            })
-        },
-
-        search: function(){
-            if(this.address.length>5){
-                var _this = this
-                console.log('search', this)
-                fetch(url+this.address)
-                    .then(function(response){
+            if(this.startAddress.length > 0){
+                console.log("startComplete");
+                fetch(autocompleteUrl + this.startAddress)
+                    .then(function (response) {
                         return response.json()
                     })
-                    .then(function(response){
-                        _this.results = response.suggestions
+                    .then(function (response) {
+                        _this.autoCompleteResults = response.suggestions
                     })
-
-            }else{
-                console.log('must use a valid address')
             }
+        
+            if(this.destAddress.length > 0){
+                console.log("destComplete");
+                fetch(autocompleteUrl + this.destAddress)
+                    .then(function (response) {
+                        return response.json()
+                    })
+                    .then(function (response) {
+                        _this.autoCompleteResults = response.suggestions
+                    })
+            } 
+        },
+        resultSelect: function (result) {
+            var _this = this
+            console.log('result', result)
+            fetch(geocodeUrl + result.label)
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (response) {
+                    var location = response.Response.View[0].Result[0].Location.DisplayPosition
+                    if(_this.isStart == true) {
+                        _this.startAddress = result.label
+                        _this.startPoint = L.marker([location.Latitude, location.Longitude])
+                        _this.startPoint.addTo(map)
+                        _this.startLocation = location
+                        _this.autoCompleteResults = []
+                    } else {
+                        _this.destinationAddress = result.label
+                        _this.destinationPoint = L.marker([location.Latitude, location.Longitude])
+                        _this.destinationPoint.addTo(map)
+                        _this.destinationLocation = location
+                        _this.autoCompleteResults = []
+                    }
+                })
+            },
+                search: function () {
+                    console.log('running search')
+                    var journeyUrl = 'https://platform.whereismytransport.com/api/journeys'
+                    var ourBody = {
+                        "geometry": {
+                            "type": "MultiPoint",
+                            "coordinates": [
+                                [
+                                    this.startLocation.Longitude,
+                                    this.startLocation.Latitude
+                                ],
+                                [
+                                    this.destinationLocation.Longitude,
+                                    this.destinationLocation.Latitude
+                                ]
+                            ]
+                        },
+                        "maxItineraries": 5
+                    }
+
+                    fetch(journeyUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + window.token,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(ourBody) 
+                    })
+                    .then(function(response){
+                        // console.log(response)
+                        return response.json()
+                    })
+                    .then(function(response) {
+                        console.log(response)
+        
+                        var itineraries = response.itineraries
+                        if(itineraries.length > 0) {
+                            var legs = itineraries[0].legs
+                            for(var i = 0; i < legs.length; i++) {
+                                console.log('geometry', legs[i].geometry.coordinates)
+                                var coorindates = legs[i].geometry.coordinates
+        
+                            }
+                        }
+                    })
+                }
         }
-    }
 })
+
+//connect to where is my transport, get token.....
