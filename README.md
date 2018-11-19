@@ -5,4 +5,4 @@ Github Page: https://mastertbo.github.io/RailWayTransport/
 
 Portotype URL: https://marvelapp.com/639ad6f
 
-ZEIT URL: https://railwaytransport-ddtmatmlgn.now.sh/
+ZEIT URL: https://assignment6-oacexgkwom.now.sh/
