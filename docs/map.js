@@ -8,7 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const appId = 'CVNwhRsBKjQXRlbOZIJs'
 const appCode = '5bgs6vvyBoKP9cAOjBy1gA'
 
-const autocompleteUrl = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json" +
+const autocompleteUrl = "https://autocomplete.geocoder.api.here.com/6.2/suggest.json" +
   "?app_id=" + appId +
   "&app_code=" + appCode +
   "&query="

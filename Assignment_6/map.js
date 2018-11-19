@@ -10,7 +10,7 @@ const appCode = '5bgs6vvyBoKP9cAOjBy1gA'
 const clientId = 'f99da0f2-7aed-4d6a-a64b-5a166c99bdd3'
 const clientSecret = 'fTV46ARkBaBb+nSNwmBWQm2Eum+I2ik+cBsq6Bsnwso='
 
-const autocompleteUrl = "http://autocomplete.geocoder.api.here.com/6.2/suggest.json" +
+const autocompleteUrl = "https://autocomplete.geocoder.api.here.com/6.2/suggest.json" +
   "?app_id=" + appId +
   "&app_code=" + appCode +
   "&query="
