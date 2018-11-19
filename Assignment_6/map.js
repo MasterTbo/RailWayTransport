@@ -20,6 +20,7 @@ const geocodeUrl = "https://geocoder.api.here.com/6.2/geocode.json" +
   "&app_code=" + appCode +
   "&searchtext=";
 
+//Set pointer icon
 var redIcon = L.icon({
     iconUrl: 'icons/mapPointer.jpg',
     //shadowUrl: 'leaf-shadow.png',
@@ -31,7 +32,7 @@ var redIcon = L.icon({
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
+
 
 //Lecture code
 const tokenUrl = "https://identity.whereismytransport.com/connect/token"
@@ -77,6 +78,7 @@ var app = new Vue({
     data: {
         startAddress: '',        
         startPoint: "",
+        destPoint: "",
         destAddress: "",
         autoCompleteResults: [],
 
@@ -157,7 +159,8 @@ var app = new Vue({
                     var location = response.Response.View[0].Result[0].Location.DisplayPosition
                     if(_this.isStart == true) {
                         _this.startAddress = result.label
-                        _this.startPoint = L.marker([location.Latitude, location.Longitude])
+                        _this.startPoint = L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
+                        //L.marker([location.Latitude, location.Longitude])
                         _this.startPoint.addTo(map)
                         _this.startLocation = location
                         _this.autoCompleteResults = []
@@ -172,18 +175,19 @@ var app = new Vue({
             },
                 search: function () {
                     console.log('running search')
+                    this.locationSearch();
                     var journeyUrl = 'https://platform.whereismytransport.com/api/journeys'
                     var ourBody = {
                         "geometry": {
                             "type": "MultiPoint",
                             "coordinates": [
                                 [
-                                    this.startLocation.Longitude,
-                                    this.startLocation.Latitude
+                                    this.startPoint.Longitude,
+                                    this.startPoint.Latitude
                                 ],
                                 [
-                                    this.destinationLocation.Longitude,
-                                    this.destinationLocation.Latitude
+                                    this.destPoint.Longitude,
+                                    this.destPoint.Latitude
                                 ]
                             ]
                         },
