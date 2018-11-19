@@ -43,11 +43,13 @@
           </style>
 </head>
 <body>
-    <h1 class="is-size-1">Search for Train</h1>
+    <div class="container has-text-centered">
+        <h4 class="is-size-4" style="font-weight: bold">RailWayTransport</h4>
+    </div>
     <div id="app">
         <div id="search">
             <div id="innersearch">
-                <form v-on:submit.prevent>
+                <form class="form" v-on:submit.prevent>
                     <div>
                         <input class="input" v-bind:class="{'is-danger': startLocError}" placeholder="Start Point" v-model="startAddress" v-on:keyup="autocomplete(true)"><br>
                     </div>
