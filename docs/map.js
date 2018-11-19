@@ -1,5 +1,5 @@
 var map = L.map('map').setView([-33.91, 18.41], 11)
-L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
+//L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
