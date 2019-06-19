@@ -2,9 +2,10 @@
 RailWayTransport Management Mobile Application
 
 Github Page: https://t-b-o.github.io/RailWayTransport/
+
 Username: tbo
 
-password: #tbo
+password: tbo@123
 
 
 Portotype URL: https://marvelapp.com/639ad6f
