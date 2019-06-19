@@ -2,7 +2,7 @@
 RailWayTransport Management Mobile Application
 
 
-#### Technology: VUE, HTML5, CSS, Mapbox API
+#### Technology: VUE, HTML5, CSS, and Mapbox API
 
 
 Github Page: https://t-b-o.github.io/RailWayTransport/      
